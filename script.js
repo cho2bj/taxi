@@ -44,7 +44,7 @@ let meta = loadMeta();
 let state = loadState() || createExam("normal");
 
 function loadMeta() {
-  const base = { important: [], mastered: [], wrongNotebook: [], hideMastered: false };
+  const base = { important: [], mastered: [], wrongNotebook: [], hideMastered: false, questionQueue: [] };
   try {
     return { ...base, ...JSON.parse(localStorage.getItem(META_KEY)) };
   } catch {
@@ -84,9 +84,39 @@ function availableQuestions() {
   return QUESTIONS.filter((q) => !meta.hideMastered || !meta.mastered.includes(q.id));
 }
 
+function rebuildQuestionQueue() {
+  meta.questionQueue = shuffle(availableQuestions().map((q) => q.id));
+  saveMeta();
+}
+
+function drawQueuedQuestions() {
+  const target = Math.min(EXAM_SIZE, availableQuestions().length);
+  const picked = [];
+  const pickedIds = new Set();
+
+  while (picked.length < target) {
+    if (!Array.isArray(meta.questionQueue) || !meta.questionQueue.length) rebuildQuestionQueue();
+    const before = picked.length;
+
+    while (meta.questionQueue.length && picked.length < target) {
+      const id = meta.questionQueue.shift();
+      const q = questionById(id);
+      if (!q || pickedIds.has(id)) continue;
+      if (meta.hideMastered && meta.mastered.includes(id)) continue;
+      picked.push(q);
+      pickedIds.add(id);
+    }
+
+    if (picked.length === before && availableQuestions().length <= pickedIds.size) break;
+  }
+
+  saveMeta();
+  return picked;
+}
+
 function createExam(mode, ids = null) {
-  const pool = ids ? ids.map(questionById).filter(Boolean) : availableQuestions();
-  const picked = shuffle(pool).slice(0, Math.min(EXAM_SIZE, pool.length));
+  const pool = ids ? ids.map(questionById).filter(Boolean) : null;
+  const picked = ids ? shuffle(pool).slice(0, Math.min(EXAM_SIZE, pool.length)) : drawQueuedQuestions();
   return {
     mode,
     current: 0,
