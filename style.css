@@ -1,16 +1,17 @@
 ﻿:root {
-  --bg: #f5f7fb;
-  --panel: #ffffff;
-  --ink: #182235;
-  --muted: #68758a;
-  --line: #dce3ef;
-  --primary: #246bfe;
-  --primary-dark: #174fc0;
-  --good: #148a45;
-  --bad: #d43b3b;
-  --soft-good: #e8f7ee;
-  --soft-bad: #ffeded;
-  --soft-blue: #eaf1ff;
+  color-scheme: dark;
+  --bg: #0b1020;
+  --panel: #111827;
+  --ink: #edf3ff;
+  --muted: #9aa8bd;
+  --line: #2b3648;
+  --primary: #4f8cff;
+  --primary-dark: #2f6ee8;
+  --good: #4ade80;
+  --bad: #fb7185;
+  --soft-good: #0f3b2a;
+  --soft-bad: #4a1620;
+  --soft-blue: #17294a;
   font-family: Arial, "Noto Sans KR", sans-serif;
 }
 * { box-sizing: border-box; }
@@ -134,4 +135,36 @@ dialog::backdrop { background: rgba(14, 24, 40, .42); }
   .mode-row { grid-template-columns: repeat(2, 1fr); }
   #reviewImportant { grid-column: span 2; }
   .top-actions { grid-template-columns: 1fr 1fr; }
+}
+
+body { background: radial-gradient(circle at top, #182642 0, var(--bg) 340px); }
+.secondary,
+.small-button,
+.star-button,
+.icon-button { background: #1b2638; color: var(--ink); border-color: var(--line); }
+.secondary:hover,
+.small-button:hover,
+.star-button:hover,
+.icon-button:hover,
+.ghost-button:hover { background: #25344a; }
+.ghost-button { color: var(--ink); }
+.danger { color: #ff9aa6; }
+.progress-track { background: #1e293b; }
+.option,
+.history-item,
+.result-box,
+.search-result,
+.missed-list div { background: #162033; color: var(--ink); }
+.option.correct { background: var(--soft-good); border-color: var(--good); color: #d9ffe8; }
+.option.wrong { background: var(--soft-bad); border-color: var(--bad); color: #ffe0e5; }
+.feedback { background: #121c2d; }
+.star-button.active { color: #fde68a; background: #3a2d0b; border-color: #a97912; }
+.small-button.active { color: var(--good); background: var(--soft-good); border-color: #237a4d; }
+dialog { background: var(--panel); color: var(--ink); }
+dialog::backdrop { background: rgba(0, 0, 0, .68); }
+.search-input { background: #0f172a; color: var(--ink); }
+.search-input::placeholder { color: var(--muted); }
+@media (max-width: 560px) {
+  body { background: var(--bg); }
+  .toggle { background: #162033; }
 }
