@@ -1,0 +1,95 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>택시운전 자격시험 랜덤 퀴즈</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">택시운전 자격시험</p>
+      <h1>랜덤 70문항 퀴즈</h1>
+    </div>
+    <div class="top-actions">
+      <button id="searchToggle" class="ghost-button" type="button">문제 검색</button>
+      <button id="resetProgress" class="ghost-button danger" type="button">진행 초기화</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="quiz-panel">
+      <div class="status-grid">
+        <div class="stat"><span>진행</span><strong id="progressText">0 / 70</strong></div>
+        <div class="stat"><span>정답</span><strong id="correctCount">0</strong></div>
+        <div class="stat"><span>오답</span><strong id="wrongCount">0</strong></div>
+        <div class="stat"><span>현재 점수</span><strong id="scoreText">0점</strong></div>
+      </div>
+
+      <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+
+      <div class="mode-row">
+        <button id="newExam" type="button">새 랜덤 시험</button>
+        <button id="resumeExam" class="secondary" type="button">이어풀기</button>
+        <button id="reviewWrong" class="secondary" type="button">오답노트 <span id="wrongSavedCount">0</span></button>
+        <button id="reviewImportant" class="secondary" type="button">⭐ 중요문제만 다시 풀기 <span id="importantCount">0</span></button>
+        <label class="toggle"><input id="hideMastered" type="checkbox" /> 완벽 문제 숨기기</label>
+      </div>
+
+      <article class="question-card">
+        <div class="question-head">
+          <span id="questionNumber" class="question-number">1번</span>
+          <div class="mark-actions">
+            <button id="masteredBtn" class="small-button" type="button">완벽 체크</button>
+            <button id="importantBtn" class="star-button" type="button">☆ 중요</button>
+          </div>
+        </div>
+        <h2 id="questionText"></h2>
+        <div id="options" class="options"></div>
+        <div id="feedback" class="feedback" hidden></div>
+        <div class="nav-row">
+          <button id="prevBtn" class="secondary" type="button">이전 문제 보기</button>
+          <button id="nextBtn" type="button">다음 문제</button>
+        </div>
+      </article>
+    </section>
+
+    <aside class="side-panel">
+      <section class="mini-section">
+        <h3>시험 기준</h3>
+        <p>70문항 중 42문항 이상, 60점 이상이면 합격입니다.</p>
+        <p id="passHint" class="pass-hint">아직 채점 전입니다.</p>
+      </section>
+      <section class="mini-section">
+        <h3>이전 문제</h3>
+        <div id="historyList" class="history-list"></div>
+      </section>
+    </aside>
+  </main>
+
+  <dialog id="resultDialog" class="result-dialog">
+    <div class="dialog-head">
+      <h2>시험 결과</h2>
+      <button id="closeResult" class="icon-button" type="button" aria-label="닫기">×</button>
+    </div>
+    <div id="resultBody"></div>
+    <div class="dialog-actions">
+      <button id="retryWrongFromResult" class="secondary" type="button">틀린 문제 다시 풀기</button>
+      <button id="restartFromResult" type="button">새 시험 시작</button>
+    </div>
+  </dialog>
+
+  <dialog id="searchDialog" class="search-dialog">
+    <div class="dialog-head">
+      <h2>문제 검색</h2>
+      <button id="closeSearch" class="icon-button" type="button" aria-label="닫기">×</button>
+    </div>
+    <input id="searchInput" class="search-input" type="search" placeholder="키워드를 입력하세요" />
+    <div id="searchResults" class="search-results"></div>
+  </dialog>
+
+  <script src="questions.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
