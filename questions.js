@@ -1,12 +1,6 @@
-export interface Question {
-  id: number;
-  question: string;
-  options: string[];
-  answer: number; // 0-indexed (0 to 3)
-  explanation: string;
-}
-
-export const QUESTIONS: Question[] = [
+// 이 파일은 바닐라 자바스크립트(ES6) 포맷의 기출문제 데이터입니다.
+// 기존 깃허브의 questions.js 파일 내용 전체를 비우고, 아래 코드를 그대로 붙여넣기 하시면 됩니다!
+export const QUESTIONS = [
   {
     "id": 1,
     "question": "여객자동차 운수사업법의 목적과 가장 관련이 없는 것은?",
