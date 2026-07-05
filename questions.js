@@ -1,4 +1,4 @@
-export const QUESTIONS = [
+const QUESTIONS = [
   {
     "id": 1,
     "question": "여객자동차 운수사업법의 목적과 가장 관련이 없는 것은?",
